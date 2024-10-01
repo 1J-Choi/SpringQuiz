@@ -16,7 +16,6 @@ public class Lesson02Quiz01RestController {
 	
 	@RequestMapping("/lesson02/quiz01")
 	public List<Store> ex01() {
-		List<Store> storeList = storeService.getStoreList();
-		return storeList;
+		return storeService.getStoreList();
 	}
 }

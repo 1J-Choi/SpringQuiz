@@ -14,7 +14,6 @@ public class StoreService {
 	private StoreRepository storeRepository;
 	
 	public List<Store> getStoreList() {
-		List<Store> storeList = storeRepository.selectStoreList();
-		return storeList;
+		return storeRepository.selectStoreList();
 	}
 }
