@@ -3,6 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.quiz.lesson03.mapper.RealEstateMapper">
+ 	<!-- lesson03 quiz01_1 -->
  	<select id="selectRealEstateById" 
  	parameterType="int"
  	resultType="com.quiz.lesson03.domain.RealEstate">
@@ -21,7 +22,8 @@
 		WHERE
 			`id` = #{id}
  	</select>
- 	<select id="selectRealEstateByRentPrice"
+ 	<!-- lesson03 quiz01_2 -->
+ 	<select id="selectRealEstateListByRentPrice"
 	parameterType="int"
  	resultType="com.quiz.lesson03.domain.RealEstate">
  		SELECT
@@ -40,9 +42,11 @@
 			<![CDATA[
 			`rentPrice` < #{rentPrice}
 			]]>
+	   <!-- `rentPrice` &lt; #{rentPrice} -->
  	</select>
- 	<select id="selectRealEstateByAreaAndPrice"
- 	parameterType="int"
+ 	<!-- lesson03 quiz01_3 -->
+ 	<select id="selectRealEstateListByAreaPrice"
+ 	parameterType="map"
  	resultType="com.quiz.lesson03.domain.RealEstate">
  		SELECT
  			`id`
@@ -58,11 +62,63 @@
 			`real_estate`
 		WHERE
 			<![CDATA[
-			`area` >= #{param1}
-			]]>
+			`type` = '매매'
 			AND
-			<![CDATA[
-			`price` <= #{param2}
+			`area` >= #{area}
+			AND
+			`price` <= #{price}
 			]]>
  	</select>
+ 	<!-- lesson03 quiz02_1 -->
+ 	<insert id="insertRealEstate" 
+ 	parameterType="com.quiz.lesson03.domain.RealEstate">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice`
+			, `createdAt`
+			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, #{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	<!-- lesson03 quiz02_2 -->
+ 	<insert id="insertRealEstateAsField"
+ 	parameterType="map">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			, `address`
+			, `area`
+			, `type`
+			, `price`
+			, `rentPrice`
+			, `createdAt`
+			, `updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, #{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
  </mapper>

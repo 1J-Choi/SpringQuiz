@@ -17,11 +17,21 @@ public class RealEstateBO {
 		return realEstateMapper.selectRealEstateById(id);
 	}
 	
-	public List<RealEstate> getRealEstateByRentPrice(int rentPrice) {
-		return realEstateMapper.selectRealEstateByRentPrice(rentPrice);
+	public List<RealEstate> getRealEstateListByRentPrice(int rentPrice) {
+		return realEstateMapper.selectRealEstateListByRentPrice(rentPrice);
 	}
 	
-	public List<RealEstate> getRealEstateByAreaAndPrice(int area, int price) {
-		return realEstateMapper.selectRealEstateByAreaAndPrice(area, price);
+	public List<RealEstate> getRealEstateListByAreaPrice(int area, int price) {
+		return realEstateMapper.selectRealEstateListByAreaPrice(area, price);
+	}
+	
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateMapper.insertRealEstate(realEstate);
+	}
+	
+	public int addRealEstateAsField(int realtorId, String address, int area,
+			String type, int price, Integer rentPrice) {
+		return realEstateMapper.insertRealEstateAsField(
+				realtorId, address, area, type, price, rentPrice);
 	}
 }
