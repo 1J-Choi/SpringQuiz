@@ -3,6 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.quiz.lesson04.mapper.SellerMapper">
+ 	<!-- lesson04 quiz01 1 -->
  	<insert id="insertSeller" parameterType="map">
  		INSERT INTO `seller`
  		(
@@ -21,4 +22,35 @@
 			, NOW()
  		)
  	</insert>
+ 	<!-- lesson04 quiz01 2 -->
+ 	<select id="selectLatestSeller" 
+ 	resultType="com.quiz.lesson04.domain.Seller">
+ 		SELECT
+ 			`id`
+ 			, `nickname`
+			, `profileImageUrl`
+			, `temperature`
+			, `createdAt`
+			, `updatedAt`
+ 		FROM
+ 			`seller`
+ 		ORDER BY `id` DESC
+ 		LIMIT 1
+ 	</select>
+ 	<!-- lesson04 quiz01 3 -->
+ 	<select id="selectSellerById"
+ 	parameterType="int"
+ 	resultType="com.quiz.lesson04.domain.Seller">
+ 		SELECT
+ 			`id`
+ 			, `nickname`
+			, `profileImageUrl`
+			, `temperature`
+			, `createdAt`
+			, `updatedAt`
+ 		FROM
+ 			`seller`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
  </mapper>
