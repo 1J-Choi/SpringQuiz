@@ -41,14 +41,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="member, status : ${membership}">
+				<tr th:each="member : ${membership}">
 					<td th:text="${member.name}">이름</td>
 					<td th:text="${member.phoneNumber}">전화번호</td>
-					<td th:if="${#strings.equals(member.grade, 'VIP')}" class="text-danger" th:text="${member.grade}">등급</td>
-					<td th:if="${#strings.equals(member.grade, 'GOLD')}" class="text-warning" th:text="${member.grade}">등급</td>
-					<td th:if="${#strings.equals(member.grade, 'BASIC')}" th:text="${member.grade}">등급</td>
-					<td th:if="${member.point >= 5000}" class="text-primary" th:text="${member.point}">포인트</td>
-					<td th:unless="${member.point >= 5000}" th:text="${member.point}">포인트</td>
+					<td th:switch="${member.grade}">
+						<span th:case="'VIP'" class="text-danger" th:text="${member.grade}"></span>
+						<span th:case="'GOLD'" class="text-warning" th:text="${member.grade}"></span>
+						<span th:case="*" th:text="${member.grade}"></span> <!-- default -->
+					</td>
+					<td>
+						<span th:if="${member.point >= 5000}" th:text="|${member.point}P|" class="text-primary"></span>
+						<span th:unless="${member.point >= 5000}" th:text="${member.point} + 'P'"></span>
+					</td>
 				</tr>
 			</tbody>
 		</table>
