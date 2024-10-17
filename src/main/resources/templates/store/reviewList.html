@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>배탈의 민족</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <!-- stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/css/store/style.css">
+</head>
+<body>
+	<div id="wrap" class="container">
+		<header class="bg-info d-flex justify-content-start align-items-center">
+				<h2 class="text-white ml-3">배탈의 민족</h2>
+		</header>
+		<section class="contents">
+			<div class="display-3 my-2" th:text="${store.name} + ' - 리뷰'">리뷰</div>
+			<div th:if="">
+				<div class="border rounded border-info mb-2 p-2">
+				</div>
+			</div>
+			<div th:unless="">
+				<h2 class="ml-5">작성된 리뷰가 없습니다.</h2>
+			</div>
+		</section>
+		<hr>
+		<footer>
+			<div>(주)우와한형제</div>
+			<address class="text-secondary">고객센터: 1500-1500</address>
+		</footer>
+	</div>
+</body>
+</html>

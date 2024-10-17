@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>즐겨찾기 추가</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="contianer">
+		<h1>즐겨찾기 추가하기</h1>
+		<label for="name">제목</label>
+		<input type="text" id="name" class="form-control mb-2">
+		<label for="url">주소</label>
+		<input type="text" id="url" class="form-control mb-2">
+		<button type="button" id="bookMarkBtn" class="btn btn-success btn-block">추가</button>
+	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$('#bookMarkBtn').on('click', function() {
+				let name = $('#name').val();
+				if(!name) {
+					alert('제목을 입력하세요!');
+					return;
+				}
+				let url = $('#url').val();
+				if(!url) {
+					alert('주소를 입력하세요!');
+					return;
+				}
+				if(!url.startsWith('http://') || !url.startsWith('https://')){
+					alert('주소는 http나 https로 시작해야합니다!');
+					return;
+				}
+				
+				console.log(name);
+				console.log(url);
+				
+				$.ajax({
+					type:'POST'
+					, url:'/lesson06/quiz01/add-bookmark'
+					, data:{
+						'name':name
+						, 'url':url
+					}
+					, success:function(data) {
+						if (data == '성공') {
+							alert('등록 완료!');
+							location.href = '/lesson06/quiz01/bookmark-view';
+						}
+					}
+					, error:function(e) {
+						alert('등록 실패');
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>

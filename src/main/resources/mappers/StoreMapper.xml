@@ -6,7 +6,14 @@
  	<select id="selectStoreList" 
  	resultType="com.quiz.lesson02.dto.Store">
  		SELECT
- 			*
+ 			`id`
+			, `name`
+			, `phoneNumber`
+			, `address`
+			, `businessNumber`
+			, `introduce`
+			, `createdAt`
+			, `updatedAt`
  		FROM
  			`store`
  	</select>
