@@ -9,4 +9,5 @@ import com.quiz.weather_history.domain.WeatherHistory;
 @Mapper
 public interface WeatherHistoryMapper {
 	public List<WeatherHistory> selectWeatherHistroyAll();
+	public void insertWeatherHistory(WeatherHistory weatherHistory);
 }

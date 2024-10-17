@@ -16,4 +16,8 @@ public class WeatherHistoryBO {
 	public List<WeatherHistory> getWeatherHistroyAll() {
 		return weatherHistoryMapper.selectWeatherHistroyAll();
 	}
+	
+	public void addWeatherHistory(WeatherHistory weatherHistory) {
+		weatherHistoryMapper.insertWeatherHistory(weatherHistory);
+	}
 }
