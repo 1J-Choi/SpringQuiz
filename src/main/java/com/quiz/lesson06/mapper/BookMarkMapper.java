@@ -12,4 +12,6 @@ public interface BookMarkMapper {
 	public void insertBookMark(@Param("name") String name, 
 			@Param("url") String url);
 	public List<BookMark> selectAllBookMark();
+	public boolean isDuplicateUrl(String name);
+	public int deleteBookMarkById(int id);
 }
