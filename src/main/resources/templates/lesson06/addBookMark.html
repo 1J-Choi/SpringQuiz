@@ -14,12 +14,52 @@
 		<label for="name">제목</label>
 		<input type="text" id="name" class="form-control mb-2">
 		<label for="url">주소</label>
-		<input type="text" id="url" class="form-control mb-2">
+		<div class="d-flex mb-2">
+			<input type="text" id="url" class="form-control">
+			<button type="button" id="urlCheckBtn" class="btn btn-info ml-1">중복확인</button>
+		</div>
+		<small id="urlStatusArea"></small>
 		<button type="button" id="bookMarkBtn" class="btn btn-success btn-block">추가</button>
 	</div>
 	
 	<script>
 		$(document).ready(function() {
+			$('#urlCheckBtn').on('click', function() {
+				$('#urlStatusArea').empty();
+				let url = $('#url').val().trim();
+				if(!url) {
+					$('#urlStatusArea').append('<span class="text-danger">주소가 비어있습니다.</span>');
+					return false;
+				}
+				if(!url.startsWith('http') && !url.startsWith('https')){
+					$('#urlStatusArea').append('<span class="text-danger">주소는 http나 https로 시작해야합니다.</span>');
+					return false;
+				}
+				
+				$.ajax({
+					type:'GET' // GET이면 생략 가능, 조회
+					, url:"/lesson06/quiz01/is-duplicated-url"
+					, data:{
+						"url":url
+					}
+					, success:function(data) { // String -> JSON parsing -> dictionary
+						// {"code":200, "is_duplicated_url":true}
+						if(data.code == 200) {
+							if(data.is_duplicated_url == true) {
+								$('#urlStatusArea').append('<span class="text-danger">중복된 url 입니다</span>');
+							} else {
+								$('#urlStatusArea').append('<span class="text-primary">저장 가능한 url 입니다.</span>');
+							}
+						} else {
+							alert('오류가 발생하였습니다.');
+						}
+					}
+					, error:function(e) {
+						alert('url 중복 확인에 실패했습니다.');
+					}
+				});
+			});
+			
 			$('#bookMarkBtn').on('click', function() {
 				let name = $('#name').val();
 				if(!name) {
@@ -31,7 +71,7 @@
 					alert('주소를 입력하세요!');
 					return;
 				}
-				if(!url.startsWith('http://') || !url.startsWith('https://')){
+				if(!url.startsWith('http') && !url.startsWith('https')){
 					alert('주소는 http나 https로 시작해야합니다!');
 					return;
 				}
@@ -47,9 +87,11 @@
 						, 'url':url
 					}
 					, success:function(data) {
-						if (data == '성공') {
+						if (data.code == 200) {
 							alert('등록 완료!');
 							location.href = '/lesson06/quiz01/bookmark-view';
+						} else {
+							alert('등록에 실패하였습니다');
 						}
 					}
 					, error:function(e) {

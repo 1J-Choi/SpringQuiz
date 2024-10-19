@@ -20,4 +20,10 @@ public class BookMarkBO {
 	public List<BookMark> getAllBookMark() {
 		return bookMarkMapper.selectAllBookMark();
 	}
+	public boolean isDuplicateUrl(String name) {
+		return bookMarkMapper.isDuplicateUrl(name);
+	}
+	public int deleteBookMarkById(int id) {
+		return bookMarkMapper.deleteBookMarkById(id);
+	}
 }

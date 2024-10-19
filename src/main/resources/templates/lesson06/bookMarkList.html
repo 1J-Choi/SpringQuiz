@@ -23,10 +23,48 @@
 				<tr th:each="bookMark, status : ${bookMarks}">
 					<td th:text="${status.count}">번호</td>
 					<td th:text="${bookMark.name}">이름</td>
-					<td th:text="${bookMark.url}">주소</td>
+					<td>
+						<a th:href="${bookMark.url}" target="_blank" th:text="${bookMark.url}"></a>
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger deleteBtn">삭제</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$('.deleteBtn').on('click', function() {
+				let tr = $(this).closest('tr');
+				let id = tr.find('td:first').text();
+				console.log(id);
+				
+				$.ajax({
+					type:'POST'
+					, url:'/lesson06/quiz01/delete-bookMark'
+					, data:{
+						"id":id
+					}
+					, success:function(data) {
+						if(data.code == 200) {
+							if(data.is_deleted == 0) {
+								alert('삭제하고자 하는 id를 가진 데이터가 없습니다.');
+							} else {
+								alert('삭제 완료!');
+								location.href='/lesson06/quiz01/bookmark-view';
+							}
+						} else {
+							alert('삭제에 실패했습니다.');
+						}
+					}
+					, error:function(e) {
+						alert('오류가 발생했습니다.');
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>
