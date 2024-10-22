@@ -38,11 +38,16 @@ public class BookingController {
 	@PostMapping("/delete-booking")
 	public Map<String, Object> deleteBooking(
 			@RequestParam("id") int id) {
-		int isDeleted = bookingBO.removeBookingById(id);
+		int rowCount = bookingBO.removeBookingById(id);
 		
 		Map<String, Object> result = new HashMap<>();
-		result.put("code", 200);
-		result.put("is_deleted", isDeleted);
+		if(rowCount > 0) {
+			result.put("code", 200);
+			result.put("result", "삭제에 성공했습니다.");
+		} else {
+			result.put("code", 500);
+			result.put("error_message", "삭제할 대상이 없습니다.");
+		}
 		
 		return result;
 	}
@@ -60,16 +65,15 @@ public class BookingController {
 	@PostMapping("/make-booking")
 	public Map<String, Object> makeBooking(
 			@RequestParam("name") String name,
-			@RequestParam("date") LocalDate date,
+			@RequestParam("date") LocalDate date, // text가 yyyy-MM-dd이면 자동으로 매핑된다
 			@RequestParam("day") int day,
 			@RequestParam("headcount") int headcount,
-			@RequestParam("phoneNumber") String phoneNumber
-			) {
-		int isInserted = bookingBO.insertBooking(name, headcount, day, date, phoneNumber);
+			@RequestParam("phoneNumber") String phoneNumber) {
+		bookingBO.addBooking(name, headcount, day, date, phoneNumber);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
-		result.put("is_inserted", isInserted);
+		result.put("result", "등록에 성공했습니다.");
 		
 		return result;
 	}
@@ -79,5 +83,26 @@ public class BookingController {
 	@GetMapping("/check-booking-view")
 	public String checkBooking() {
 		return "booking/checkBooking";
+	}
+	
+	// 조회 요청 => JSON
+	// http://localhost:8080/booking/find-booking
+	@ResponseBody
+	@RequestMapping("/find-booking")
+	public Map<String, Object> findBooking(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber) {
+		Booking findBooking = bookingBO.getBookingByNameAndPhoneNubmer(name, phoneNumber);
+		
+		Map<String, Object> result = new HashMap<>();
+		if(findBooking != null) {
+			result.put("code", 200);
+			result.put("booking", findBooking);
+		} else {
+			result.put("code", 500);
+			result.put("error_message", "예약 내역이 없습니다.");
+		}
+		
+		return result;
 	}
 }

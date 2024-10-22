@@ -23,7 +23,11 @@ public class BookingBO {
 		return bookingMapper.deleteBookingById(id);
 	}
 	
-	public int insertBooking(String name, int headcount, int day, LocalDate date, String phoneNumber) {
-		return bookingMapper.insertBooking(name, headcount, day, date, phoneNumber);
+	public void addBooking(String name, int headcount, int day, LocalDate date, String phoneNumber) {
+		bookingMapper.insertBooking(name, headcount, day, date, phoneNumber);
+	}
+	
+	public Booking getBookingByNameAndPhoneNubmer(String name, String phoneNumber) {
+		return bookingMapper.selectBookingByNameAndPhoneNubmer(name, phoneNumber);
 	}
 }

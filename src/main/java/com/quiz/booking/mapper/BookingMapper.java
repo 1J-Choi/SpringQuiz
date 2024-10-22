@@ -12,11 +12,13 @@ import com.quiz.booking.domain.Booking;
 public interface BookingMapper {
 	public List<Booking> selectBookingAll();
 	public int deleteBookingById(int id);
-	public int insertBooking(
+	public void insertBooking(
 			@Param("name") String name
 			, @Param("headcount") int headcount
 			, @Param("day") int day
 			, @Param("date") LocalDate date
-			, @Param("phoneNumber") String phoneNumber
-			);
+			, @Param("phoneNumber") String phoneNumber);
+	public Booking selectBookingByNameAndPhoneNubmer(
+			@Param("name") String name
+			, @Param("phoneNumber") String phoneNumber);
 }
