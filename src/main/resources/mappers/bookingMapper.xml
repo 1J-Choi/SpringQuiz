@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.quiz.booking.mapper.BookingMapper">
+ 	<!-- 전체 booking 리스트 가져오기 -->
+ 	<select id="selectBookingAll"
+ 	resultType="com.quiz.booking.domain.Booking">
+ 		SELECT
+ 			`id`
+			, `name`
+			, `headcount`
+			, `day`
+			, `date`
+			, `phoneNumber`
+			, `state`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`booking`
+ 	</select>
+ 	<!-- 1. 지정된 id의 booking 삭제하기 -->
+ 	<delete id="deleteBookingById"
+ 	parameterType="int">
+ 		DELETE FROM
+ 			`booking`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
+ 	<!-- 2. 입력된 정보대로 booking 입력하기 -->
+ 	<insert id="insertBooking"
+ 	parameterType="map">
+ 		INSERT INTO `booking`
+ 		(
+ 			`name`
+			, `headcount`
+			, `day`
+			, `date`
+			, `phoneNumber`
+ 		)
+ 		VALUES
+ 		(
+ 			#{name}
+ 			, #{headcount}
+ 			, #{day}
+ 			, #{date}
+ 			, #{phoneNumber}
+ 		)
+ 	</insert>
+ </mapper>
