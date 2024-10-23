@@ -95,6 +95,7 @@ public class BookingController {
 		Booking findBooking = bookingBO.getBookingByNameAndPhoneNubmer(name, phoneNumber);
 		
 		Map<String, Object> result = new HashMap<>();
+		// {"code":200, "booking":{"id":3, "name":최원제, ...}}
 		if(findBooking != null) {
 			result.put("code", 200);
 			result.put("booking", findBooking);

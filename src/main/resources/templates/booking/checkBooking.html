@@ -87,13 +87,13 @@
             			, 'phoneNumber':phoneNumber
             		}
             		, success:function(data) {
-            			if(data.code == 200) {
+            			if(data.code == 200) { // 예약 내역 있음
             				alert('이름: ' + data.booking.name
             						+ '\n날짜: ' + data.booking.date
             						+ '\n일수: ' + data.booking.day
             						+ '\n인원: ' + data.booking.headcount
             						+ '\n상태: ' + data.booking.state);
-            			} else if(data.code == 500) {
+            			} else if(data.code == 500) { // 예약 내역 없음
             				alert(data.error_message);
             			}
             		}

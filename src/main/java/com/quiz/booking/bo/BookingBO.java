@@ -28,6 +28,7 @@ public class BookingBO {
 	}
 	
 	public Booking getBookingByNameAndPhoneNubmer(String name, String phoneNumber) {
+		
 		return bookingMapper.selectBookingByNameAndPhoneNubmer(name, phoneNumber);
 	}
 }
