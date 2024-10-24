@@ -28,4 +28,19 @@ public class Lesson07Quiz01RestController {
 		return companyBO
 				.addCompany("버블팡", "여신 금융업", "대기업", 6834);
 	}
+	
+	// 2.Update
+	// 버블팡의 규모 중소기업, 사원수 35
+	@GetMapping("/update")
+	public CompanyEntity update() {
+		return companyBO.updateCompanyScaleHeadcountById(10, "중소기업", 35);
+	}
+	
+	// 3.Delete
+	// 버블팡(id 10) 삭제
+	@GetMapping("/delete")
+	public String delete() {
+		companyBO.deleteCompanyById(10);
+		return "수행 완료";
+	}
 }
